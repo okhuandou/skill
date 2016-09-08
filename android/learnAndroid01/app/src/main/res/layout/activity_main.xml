@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+
+    <Button
+        android:id="@+id/btnStaticBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="静态Banner"
+        android:textColor="#000000"
+        android:layout_marginLeft="10dp" />
+    
+    <TextView 
+        android:id="@+id/static_text"
+        android:layout_below="@id/btnStaticBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/btnStaticBanner"
+        android:layout_margin="10dp"
+        android:text="静态Banner是在layout布局中设置把它作为布局元素使用，通过findViewById获取"
+        />
+
+    <Button
+        android:id="@+id/btnDynamicBanner"
+		 android:layout_below="@id/static_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:maxEms="20"
+        android:text="动态Banner"
+        android:textColor="#000000" 
+        android:layout_marginLeft="10dp"/>
+    <TextView 
+        android:id="@+id/dynamic_text"
+        android:layout_below="@id/btnDynamicBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/btnDynamicBanner"
+        android:layout_margin="10dp"
+        android:text="动态的Banner是在代码中动态创建，然后将Banner添加到布局中"
+        />
+    <Button 
+        android:id="@+id/btnpopad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dynamic_text"
+        android:layout_margin="10dp"
+        android:text="插屏AD弹出"
+        />
+    <TextView 
+        android:id="@+id/popad_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnpopad"
+        android:layout_alignLeft="@id/btnpopad"
+        android:layout_margin="10dp"
+        android:text="当点击该按钮的时候，会弹出插屏广告"
+        />
+    
+    <Button 
+        android:id="@+id/btn_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/popad_text"
+        android:layout_margin="10dp"
+        android:text="信息流广告"
+        />
+    
+    
+</RelativeLayout>
