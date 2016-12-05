@@ -1,0 +1,169 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.lk.demo</groupId>
+	<artifactId>dubboServiceDemo</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>dubboServiceDemo Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		 <dependency>  
+            <groupId>com.alibaba</groupId>  
+            <artifactId>dubbo</artifactId>  
+            <version>2.5.3</version>  
+        </dependency>  
+          
+         <dependency>  
+            <groupId>org.apache.zookeeper</groupId>  
+            <artifactId>zookeeper</artifactId>  
+            <version>3.4.6</version>  
+        </dependency>  
+    
+      <dependency>  
+         <groupId>com.github.sgroschupf</groupId>  
+         <artifactId>zkclient</artifactId>  
+         <version>0.1</version>  
+</dependency>
+	</dependencies>
+
+
+	<!--部署profile -->
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<env.devMode>dev</env.devMode>
+				<skipAssemblyDEV>false</skipAssemblyDEV>
+				<skipAssemblyPROD>true</skipAssemblyPROD>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>prod</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<env.devMode>prod</env.devMode>
+				<skipAssemblyDEV>true</skipAssemblyDEV>
+				<skipAssemblyPROD>false</skipAssemblyPROD>
+			</properties>
+		</profile>
+	</profiles>
+	<!--部署profile结束 -->
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+
+			<!--部署插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/dubbo.properties</exclude>
+						<exclude>**/jdbc.properties</exclude>
+						<exclude>**/log4j.xml</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-assembly-dev</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<skipAssembly>${skipAssemblyDEV}</skipAssembly>
+							<descriptors>
+								<descriptor>src/main/assembly/dev/assembly.xml</descriptor>
+							</descriptors>
+							<finalName>${project.artifactId}</finalName>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>make-assembly-prod</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<skipAssembly>${skipAssemblyPROD}</skipAssembly>
+							<descriptors>
+								<descriptor>src/main/assembly/prod/assembly.xml</descriptor>
+							</descriptors>
+							<finalName>${project.artifactId}</finalName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!--部署插件end -->
+		</plugins>
+	</build>
+
+
+
+
+	<!-- <build> <finalName>dubboServiceDemo</finalName> 加载资源 <resources> <resource> 
+		<targetPath>${project.build.directory}/classes</targetPath> 设置根路径,classes文件是源文件 
+		<directory>src/main/resources</directory> 制定文件夹src/main/resources下面的文件移到根路径， 
+		src/main/resources 这个路径存放所有配置文件 <filtering>true</filtering> <includes> **/* 
+		代表读取src/main/resources所有，不管啥文件，全部移到根路径 <include>**/*.xml</include> 把src/main/resources下所有文件夹的所有后缀名为.xml的文件 
+		移到根路径 <include>**/*.properties</include> 把src/main/resources下所有文件夹的所有后缀名为.properties的文件 
+		移到根路径 </includes> </resource> 结合com.alibaba.dubbo.container.Main <resource> 
+		dubbo Main方法 默认读取/classes/META-INF/spring文件下的spring-context.xml文件，所以要将spring-context.xml文件移到该目录 
+		<targetPath>${project.build.directory}/classes/META-INF/spring</targetPath> 
+		<directory>src/main/resources/WEB-INF/spring</directory> 这是我存放spring-context.xml的路径 
+		<filtering>true</filtering> <includes> <include>spring-context.xml</include> 
+		将 spring-context.xml 移到启动文件目录下 </includes> </resource> </resources> <pluginManagement> 
+		<plugins> 解决Maven插件在Eclipse内执行了一系列的生命周期引起冲突 <plugin> <groupId>org.eclipse.m2e</groupId> 
+		<artifactId>lifecycle-mapping</artifactId> <version>1.0.0</version> <configuration> 
+		<lifecycleMappingMetadata> <pluginExecutions> <pluginExecution> <pluginExecutionFilter> 
+		<groupId>org.apache.maven.plugins</groupId> <artifactId>maven-dependency-plugin</artifactId> 
+		<versionRange>[2.0,)</versionRange> <goals> <goal>copy-dependencies</goal> 
+		</goals> </pluginExecutionFilter> <action> <ignore /> </action> </pluginExecution> 
+		</pluginExecutions> </lifecycleMappingMetadata> </configuration> </plugin> 
+		</plugins> </pluginManagement> <plugins> 打包jar文件时，配置manifest文件，加入lib包的jar依赖 
+		<plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jar-plugin</artifactId> 
+		<configuration> <classesDirectory>target/classes/</classesDirectory> <archive> 
+		<manifest> <mainClass>com.alibaba.dubbo.container.Main</mainClass> 主方法，dubbo官方提供的 
+		打包时 MANIFEST.MF文件不记录的时间戳版本 <useUniqueVersions>false</useUniqueVersions> <addClasspath>true</addClasspath> 
+		<classpathPrefix>lib/</classpathPrefix> </manifest> <manifestEntries> <Class-Path>.</Class-Path> 
+		</manifestEntries> </archive> </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+		<artifactId>maven-dependency-plugin</artifactId> <executions> <execution> 
+		<id>copy-dependencies</id> <phase>package</phase> <goals> <goal>copy-dependencies</goal> 
+		</goals> <configuration> <type>jar</type> <includeTypes>jar</includeTypes> 
+		<useUniqueVersions>false</useUniqueVersions> <outputDirectory> ${project.build.directory}/lib 
+		</outputDirectory> </configuration> </execution> </executions> </plugin> 
+		</plugins> </build> -->
+</project>
