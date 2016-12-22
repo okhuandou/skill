@@ -12,6 +12,7 @@
     <modules>
         <module>lk-util</module>
 		<module>lk-skill</module>
+        <module>lk-mybatis</module>
     </modules>
 
 
