@@ -1,21 +1,24 @@
-
+﻿
 lk-util/.classpath
 
 lk-util/.project
 lk-util/.settings/
 *.prefs
-
+.idea/*
 lk-util/target／*
+lk-skill/target／*
+lk-mybatis/target／*
 
 *.class
 
 lk-skill/.classpath
+lk-skill/.iml
+lk-util/.iml
+lk-mybatis/.iml
 
 lk-skill/.project
 
 lk-skill/.settings/.jsdtscope
-
-*.prefs
 
 lk-skill/.settings/org.eclipse.wst.common.component
 
