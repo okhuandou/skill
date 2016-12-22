@@ -1,9 +1,9 @@
 package org.lk.skill.dao;
 
+import org.lk.skill.entiy.Seckill;
+
 import java.util.Date;
 import java.util.List;
-
-import org.lk.skill.entiy.Seckill;
 
 /**
  * 

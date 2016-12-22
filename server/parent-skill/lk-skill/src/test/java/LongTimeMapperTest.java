@@ -33,8 +33,9 @@ public class LongTimeMapperTest {
 
         LongTimeExample ex = new LongTimeExample();
 
-        ex.setLimitStart(1);
-        ex.setLimitEnd(10);
+        ex.setBegin(1);
+        ex.setEnd(1);
+        ex.createCriteria().andAddtimeIsNull();
         // set count,up to you
         mapper.countByExample(ex);
         int row = mapper.selectByExample(ex).size();

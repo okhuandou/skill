@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
-    <!DOCTYPE generatorConfiguration 
-      PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-      "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-	<classPathEntry
-		location="E:/.m2/repository/postgresql/postgresql/9.1-901.jdbc4/postgresql-9.1-901.jdbc4.jar" />
-	<context id="DB2Tables" targetRuntime="MyBatis3">
-		<commentGenerator>
-			<property name="suppressAllComments" value="true" />
-		</commentGenerator>
-		<jdbcConnection driverClass="org.postgresql.Driver"
-			connectionURL="jdbc:postgresql://42.101.00.61:5533/soulagou_vshop"
-			userId="*******" password="*****">
-		</jdbcConnection>
-		<javaTypeResolver>
-			<property name="forceBigDecimals" value="false" />
-		</javaTypeResolver>
+    <!--<classPathEntry
+        location="D:\local\repo\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar" />-->
+    <context id="mysql" targetRuntime="MyBatis3">
+        <!-- 这里引入扩展插件 -->
+       <plugin type="org.lk.mybatis.OraclePaginationPlugin" />
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="useActualColumnNames" value="true" />
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/test"
+                        userId="root" password="123456">
+        </jdbcConnection>
 
-		<javaModelGenerator targetPackage="com.mybatis.model"
-			targetProject="src/main/java">
-			<property name="enableSubPackages" value="true" />
-			<property name="trimStrings" value="true" />
-		</javaModelGenerator>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
 
-		<sqlMapGenerator targetPackage="sqlmap" targetProject="src/main/resources">
-			<property name="enableSubPackages" value="true" />
-		</sqlMapGenerator>
+        <javaModelGenerator targetPackage="com.mybatis.model"
+                            targetProject="src/test/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
 
-		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.mybatis.mapper" targetProject="src/main/java">
-			<property name="enableSubPackages" value="true" />
-		</javaClientGenerator>
-		<table tableName="ITEM" domainObjectName="Item"
-			enableCountByExample="false" enableSelectByExample="false"
-			enableUpdateByExample="false" enableDeleteByExample="false">
+        <sqlMapGenerator targetPackage="sqlmap" targetProject="src/test/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
 
-		</table>
-	</context>
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.mybatis.mapper" targetProject="src/test/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="longtime" domainObjectName="LongTime"
+               enableCountByExample="true" enableSelectByExample="true"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+        </table>
+        <!--<table schema="ctspmt" tableName="mt_e_msg" />-->
+    </context>
 
 </generatorConfiguration>
