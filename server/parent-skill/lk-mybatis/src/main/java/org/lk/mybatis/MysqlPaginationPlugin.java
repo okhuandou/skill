@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by lk on 2016/12/22.
+ * mysql 分页插件 用于代码生成器
  */
 public class MysqlPaginationPlugin extends PluginAdapter {
 
