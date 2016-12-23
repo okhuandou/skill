@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <description>mybatis gennerator plugins</description>
+    <description>mybatis gennerator plugins add</description>
     <artifactId>lk-mybatis</artifactId>
     <dependencies>
         <dependency>
